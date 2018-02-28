@@ -2,4 +2,7 @@
     <string name="app_name">Popular Movies</string>
 
     <string name="release_date_label">Release date:</string>
+
+    <string name="action_popular_title">Popular movies</string>
+    <string name="action_top_rated_title">Top rated movies</string>
 </resources>

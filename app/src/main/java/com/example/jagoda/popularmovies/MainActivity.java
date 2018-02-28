@@ -1,10 +1,15 @@
 package com.example.jagoda.popularmovies;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
     //Key to access results from JSON String that contains some additional information
     private static final String RESULTS_JSON = "results";
 
+    //Key to save sort order to Shared Preferences
+    private static final String KEY_SORT_ORDER = "sort_order";
+    //Values used for order: popular/top rated
+    private static final int ORDER_POPULAR = 1;
+    private static final int ORDER_TOP_RATED = 2;
+
     //Request Queue is field used by Volley library to make network requests.
     private RequestQueue requestQueue;
 
@@ -52,13 +63,22 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        fetchMovies();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int sortOrder = preferences.getInt(KEY_SORT_ORDER, ORDER_POPULAR);
+        fetchMovies(sortOrder);
 
     }
 
-    private void fetchMovies() {
+    private void fetchMovies(int sortOrder) {
 
-        String url =  "https://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY;
+        String url;
+        if(sortOrder == ORDER_POPULAR) {
+            url = "https://api.themoviedb.org/3/movie/popular?api_key=" + API_KEY;
+            Log.i("MainActivity", url);
+        } else {
+            url = "https://api.themoviedb.org/3/movie/top_rated?api_key=" + API_KEY;
+            Log.i("MainActivity", url);
+        }
         StringRequest request = new StringRequest(Request.Method.GET, url, onMoviesLoaded, onLoadError);
         requestQueue.add(request);
     }
@@ -77,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
                 List<Movie> movies = Arrays.asList(new Gson().fromJson(results, Movie[].class));
 
+                Log.i("MainActivity", "Movies list created");
                 adapter.setMovies(movies);
 
             } catch (JSONException e) {
@@ -92,4 +113,33 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", error.toString());
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemId = item.getItemId();
+
+        if(itemId == R.id.action_popular) {
+            fetchMovies(ORDER_POPULAR);
+            PreferenceManager.getDefaultSharedPreferences(this).edit().
+                    putInt(KEY_SORT_ORDER, ORDER_POPULAR).apply();
+            return true;
+        }
+
+        if(itemId == R.id.action_top_rated) {
+            fetchMovies(ORDER_TOP_RATED);
+            PreferenceManager.getDefaultSharedPreferences(this).edit().
+                    putInt(KEY_SORT_ORDER, ORDER_TOP_RATED).apply();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

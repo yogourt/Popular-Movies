@@ -9,7 +9,6 @@
     tools:context="com.example.jagoda.popularmovies.DetailActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <include
         layout="@layout/layout_detail_top" />
 

@@ -3,6 +3,7 @@ package com.example.jagoda.popularmovies;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
         titleTv.setText(title);
 
         String originalTitle = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_ORIGINAL_TITLE);
-        originalTitleTv.setText(originalTitle);
+        originalTitleTv.setText("Original title: " + originalTitle);
 
         String releaseDate = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_RELEASE_DATE);
         releaseDateTv.setText(releaseDate);
@@ -53,7 +54,11 @@ public class DetailActivity extends AppCompatActivity {
                 .load(url)
                 .into(posterIv);
 
+        posterIv.setContentDescription("Poster " + title);
+
         double rating = intentThatStartedActivity.getDoubleExtra(PostersAdapter.KEY_RATING, 0);
         ratingBar.setRating((float)rating);
+
+        Log.i("DetailActivity", String.valueOf(rating));
     }
 }
