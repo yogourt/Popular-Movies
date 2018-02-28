@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/detail_activity_padding"
+    android:paddingRight="@dimen/detail_activity_padding"
+    android:paddingBottom="@dimen/detail_activity_padding"
+    android:background="@color/quartz">
+
+    <TextView
+        android:id="@+id/overview_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/detail_vertical_padding"
+        android:paddingBottom="@dimen/detail_vertical_padding"
+        android:justificationMode="inter_word"
+        style="@style/DetailBottomTextStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Overview" />
+
+
+    <TextView
+        android:id="@+id/release_date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/release_date_left_margin"
+        style="@style/DetailBottomTextStyle"
+        app:layout_constraintBottom_toBottomOf="@+id/release_date_label"
+        app:layout_constraintStart_toEndOf="@+id/release_date_label"
+        tools:text="01-01-2014" />
+
+    <TextView
+        android:id="@+id/release_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/release_date_label"
+        style="@style/DetailBottomTextStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/overview_text_view" />
+
+</android.support.constraint.ConstraintLayout>
+</ScrollView>

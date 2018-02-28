@@ -1,6 +1,7 @@
 package com.example.jagoda.popularmovies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,9 +20,16 @@ import java.util.List;
 public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterViewHolder> {
 
     //base URL used to fetch poster's image in onBindViewHolder
-    private static final String BASE_IMAGE_URL = " http://image.tmdb.org/t/p/w185/";
+    public static final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
 
-    Context context;
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_ORIGINAL_TITLE = "original_title";
+    public static final String KEY_RELEASE_DATE = "release_date";
+    public static final String KEY_OVERVIEW = "description";
+    public static final String KEY_IMAGE_PATH = "image_path";
+    public static final String KEY_RATING = "rating";
+
+    private Context context;
     private List<Movie> movies;
 
     public PostersAdapter(Context context) {
@@ -64,7 +72,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
     }
 
 
-    class PosterViewHolder extends RecyclerView.ViewHolder {
+    class PosterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         //Image View to hold the poster
         ImageView posterIv;
@@ -72,6 +80,21 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
         public PosterViewHolder(View itemView) {
             super(itemView);
             posterIv = itemView.findViewById(R.id.poster_image_view);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            Intent intentForDetailActivity = new Intent(context, DetailActivity.class);
+            Movie clickedMovie = movies.get(position);
+            intentForDetailActivity.putExtra(KEY_TITLE, clickedMovie.getTitle());
+            intentForDetailActivity.putExtra(KEY_ORIGINAL_TITLE, clickedMovie.getOriginalTitle());
+            intentForDetailActivity.putExtra(KEY_RELEASE_DATE, clickedMovie.getReleaseDate());
+            intentForDetailActivity.putExtra(KEY_IMAGE_PATH, clickedMovie.getPosterPath());
+            intentForDetailActivity.putExtra(KEY_OVERVIEW, clickedMovie.getOverview());
+            intentForDetailActivity.putExtra(KEY_RATING, clickedMovie.getRating());
+            context.startActivity(intentForDetailActivity);
         }
     }
 }
