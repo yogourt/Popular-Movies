@@ -5,4 +5,5 @@
     <dimen name="release_date_left_margin">8dp</dimen>
     <dimen name="rating_bottom_margin">16dp</dimen>
     <dimen name="title_top_margin">16dp</dimen>
+    <dimen name="title_horizontal_margin">8dp</dimen>
 </resources>

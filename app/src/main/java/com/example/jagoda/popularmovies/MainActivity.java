@@ -1,6 +1,7 @@
 package com.example.jagoda.popularmovies;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,8 +29,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Number of columns in Grid Layout of Posters Recycler View
-    private static final int COLUMNS_NUM = 3;
+    //Number of columns in Grid Layout of Posters Recycler View for portrait and landscape orientation
+    private static final int COLUMN_NUM_PORT = 3;
+    private static final int COLUMN_NUM_LAND = 5;
 
     private static final String API_KEY = "YOUR_API_KEY";
 
@@ -57,7 +59,15 @@ public class MainActivity extends AppCompatActivity {
         adapter = new PostersAdapter(this);
         postersRV.setAdapter(adapter);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, COLUMNS_NUM);
+        //check screen orientation and make column number according to it
+        int orientation = getResources().getConfiguration().orientation;
+        int columnNum;
+        if(orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columnNum = COLUMN_NUM_PORT;
+        } else {
+            columnNum = COLUMN_NUM_LAND;
+        }
+        GridLayoutManager layoutManager = new GridLayoutManager(this, columnNum);
         postersRV.setLayoutManager(layoutManager);
         postersRV.setHasFixedSize(true);
 
