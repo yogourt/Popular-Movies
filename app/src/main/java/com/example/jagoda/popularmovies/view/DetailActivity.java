@@ -1,4 +1,4 @@
-package com.example.jagoda.popularmovies;
+package com.example.jagoda.popularmovies.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.jagoda.popularmovies.R;
+import com.example.jagoda.popularmovies.presenter.MainPresenter;
+import com.example.jagoda.popularmovies.view.PostersAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -39,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
         titleTv.setText(title);
 
         String originalTitle = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_ORIGINAL_TITLE);
-        originalTitleTv.setText("Original title: " + originalTitle);
+        originalTitleTv.setText(getString(R.string.original_title_label) + originalTitle);
 
         String releaseDate = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_RELEASE_DATE);
         releaseDateTv.setText(releaseDate);
@@ -54,7 +57,7 @@ public class DetailActivity extends AppCompatActivity {
                 .load(url)
                 .into(posterIv);
 
-        posterIv.setContentDescription("Poster " + title);
+        posterIv.setContentDescription(getString(R.string.content_desc_poster) + title);
 
         double rating = intentThatStartedActivity.getDoubleExtra(PostersAdapter.KEY_RATING, 0);
         ratingBar.setRating((float)rating);

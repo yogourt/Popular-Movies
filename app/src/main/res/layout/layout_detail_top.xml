@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/luckyPoint"
-    tools:context="com.example.jagoda.popularmovies.DetailActivity">
+    tools:context="com.example.jagoda.popularmovies.view.DetailActivity">
 
     <ImageView
         android:id="@+id/poster_thumbnail_image_view"

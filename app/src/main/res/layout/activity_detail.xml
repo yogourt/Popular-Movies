@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/quartz"
-    tools:context="com.example.jagoda.popularmovies.DetailActivity"
+    tools:context="com.example.jagoda.popularmovies.view.DetailActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <include

@@ -2,16 +2,10 @@
 <resources>
 
     <color name="mandy">#e2747b</color>
-    <color name="deepKoamaru">#393758</color>
-    <color name="amethystSmoke">#998F9A</color>
-    <color name="hippiePink">#AA5C5D</color>
     <color name="rose">#D3A08C</color>
-    <color name="wistful">#A5A0E7</color>
 
     <color name="luckyPoint">#1F214C</color>
     <color name="toryBlue">#353EA2</color>
-    <color name="darkGray">#ADADAD</color>
-    <color name="veryLightGrey">#CECECE</color>
     <color name="whisper">#EAEAEA</color>
     <color name="quartz">#DFDEE2</color>
 

@@ -5,4 +5,6 @@
 
     <string name="action_popular_title">Popular movies</string>
     <string name="action_top_rated_title">Top rated movies</string>
+    <string name="original_title_label">Original title: </string>
+    <string name="content_desc_poster">Poster</string>
 </resources>

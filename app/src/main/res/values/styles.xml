@@ -6,7 +6,8 @@
         <item name="colorPrimary">@color/luckyPoint</item>
         <item name="colorPrimaryDark">@color/toryBlue</item>
         <item name="colorAccent">@color/mandy</item>
-        
+
+        <!-- menu item background color -->
         <item name="android:itemBackground">@color/toryBlue</item>
 
     </style>

@@ -1,4 +1,4 @@
-package com.example.jagoda.popularmovies;
+package com.example.jagoda.popularmovies.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.jagoda.popularmovies.data.Movie;
+import com.example.jagoda.popularmovies.R;
+import com.example.jagoda.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -87,6 +88,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
         public void onClick(View view) {
             int position = getAdapterPosition();
             Intent intentForDetailActivity = new Intent(context, DetailActivity.class);
+
             Movie clickedMovie = movies.get(position);
             intentForDetailActivity.putExtra(KEY_TITLE, clickedMovie.getTitle());
             intentForDetailActivity.putExtra(KEY_ORIGINAL_TITLE, clickedMovie.getOriginalTitle());
@@ -94,6 +96,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
             intentForDetailActivity.putExtra(KEY_IMAGE_PATH, clickedMovie.getPosterPath());
             intentForDetailActivity.putExtra(KEY_OVERVIEW, clickedMovie.getOverview());
             intentForDetailActivity.putExtra(KEY_RATING, clickedMovie.getRating());
+
             context.startActivity(intentForDetailActivity);
         }
     }
