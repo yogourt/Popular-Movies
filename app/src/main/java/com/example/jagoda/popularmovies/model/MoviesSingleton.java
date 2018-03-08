@@ -10,13 +10,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.jagoda.popularmovies.view.MainActivity;
 import java.util.List;
 
-/* This is Singleton class for movies repository that allows caching data on orientation change
- * and that preserves RequestQueue Singleton object for network requests.
+/* This is Singleton class for movies that allows caching data
+ * and that preserves RequestQueue object for network requests.
 */
-public class MoviesRepository {
+public class MoviesSingleton {
 
 
-    private static MoviesRepository instance;
+    private static MoviesSingleton instance;
 
     //Request Queue is field used by Volley library to make network requests.
     private RequestQueue requestQueue;
@@ -26,14 +26,14 @@ public class MoviesRepository {
     Context appContext;
 
     //private constructor can be called only inside this class
-    private MoviesRepository(Context appContext) {
+    private MoviesSingleton(Context appContext) {
         this.appContext = appContext;
         requestQueue = getRequestQueue();
     }
 
-    public static synchronized MoviesRepository getInstance(Context appContext) {
+    public static synchronized MoviesSingleton getInstance(Context appContext) {
         if (instance == null) {
-            instance = new MoviesRepository(appContext);
+            instance = new MoviesSingleton(appContext);
         }
         return instance;
     }
@@ -49,7 +49,7 @@ public class MoviesRepository {
 
     public void addToRequestQueue(Request request) {
         getRequestQueue().add(request);
-        Log.d("MoviesRepository", "New request in requestQueue");
+        Log.d("MoviesSingleton", "New request in requestQueue");
     }
 
 

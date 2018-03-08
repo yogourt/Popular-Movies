@@ -23,6 +23,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
     //base URL used to fetch poster's image in onBindViewHolder
     public static final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
 
+    public static final String KEY_ID = "id";
     public static final String KEY_TITLE = "title";
     public static final String KEY_ORIGINAL_TITLE = "original_title";
     public static final String KEY_RELEASE_DATE = "release_date";
@@ -90,6 +91,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
             Intent intentForDetailActivity = new Intent(context, DetailActivity.class);
 
             Movie clickedMovie = movies.get(position);
+            intentForDetailActivity.putExtra(KEY_ID, clickedMovie.getId());
             intentForDetailActivity.putExtra(KEY_TITLE, clickedMovie.getTitle());
             intentForDetailActivity.putExtra(KEY_ORIGINAL_TITLE, clickedMovie.getOriginalTitle());
             intentForDetailActivity.putExtra(KEY_RELEASE_DATE, clickedMovie.getReleaseDate());

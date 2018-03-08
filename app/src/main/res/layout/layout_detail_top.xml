@@ -8,6 +8,7 @@
     android:background="@color/luckyPoint"
     tools:context="com.example.jagoda.popularmovies.view.DetailActivity">
 
+
     <ImageView
         android:id="@+id/poster_thumbnail_image_view"
         android:layout_width="140dp"
@@ -24,7 +25,7 @@
         android:layout_marginTop="@dimen/title_top_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textAlignment="center"
-        android:textColor="@color/mandy"
+        android:textColor="@color/hippiePink"
         android:layout_marginLeft="@dimen/title_horizontal_margin"
         android:layout_marginRight="@dimen/title_horizontal_margin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,5 +59,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/poster_thumbnail_image_view"
         app:layout_constraintEnd_toEndOf="@+id/title_text_view"
         app:layout_constraintStart_toStartOf="@+id/title_text_view" />
+
 
 </android.support.constraint.ConstraintLayout>

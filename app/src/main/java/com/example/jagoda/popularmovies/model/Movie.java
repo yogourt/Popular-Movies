@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Movie {
 
+    private int id;
     private String title;
     @SerializedName("original_title")
     private String originalTitle;
@@ -20,6 +21,10 @@ public class Movie {
     private String overview;
     @SerializedName("vote_average")
     private double rating;
+
+    public int getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;

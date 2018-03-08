@@ -12,7 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.jagoda.popularmovies.R;
-import com.example.jagoda.popularmovies.model.MoviesRepository;
+import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.presenter.MainPresenter;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PostersAdapter adapter;
     private MainPresenter presenter;
-    private MoviesRepository repository;
+    private MoviesSingleton repository;
 
     private RecyclerView postersRV;
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         postersRV = findViewById(R.id.posters_rv);
         setPostersRvProperties();
 
-        repository = MoviesRepository.getInstance(getApplicationContext());
+        repository = MoviesSingleton.getInstance(getApplicationContext());
 
         presenter = new MainPresenter(adapter, repository);
 

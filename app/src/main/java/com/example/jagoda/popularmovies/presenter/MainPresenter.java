@@ -8,7 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.jagoda.popularmovies.model.Movie;
-import com.example.jagoda.popularmovies.model.MoviesRepository;
+import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.view.MainActivity;
 import com.example.jagoda.popularmovies.view.PostersAdapter;
 import com.google.gson.Gson;
@@ -25,16 +25,16 @@ import static com.example.jagoda.popularmovies.view.MainActivity.ORDER_POPULAR;
 
 public class MainPresenter {
 
-    private static final String API_KEY = "YOUR_API_KEY";
+    protected static final String API_KEY = "YOUR_API_KEY";
 
     //Key to access results from JSON String that contains some additional information
     public static final String RESULTS_JSON = "results";
 
     private PostersAdapter adapter;
-    private MoviesRepository repository;
+    private MoviesSingleton repository;
 
 
-    public MainPresenter(PostersAdapter adapter, MoviesRepository repository) {
+    public MainPresenter(PostersAdapter adapter, MoviesSingleton repository) {
         this.adapter = adapter;
         this.repository = repository;
 
@@ -87,6 +87,7 @@ public class MainPresenter {
                 JSONObject responseJson = new JSONObject(response);
                 String results = responseJson.getString(RESULTS_JSON);
 
+                Log.d("MainPresenter", response);
                 List<Movie> moviesOrderPopular = Arrays.asList(new Gson().fromJson(results, Movie[].class));
                 setMoviesToAdapter(moviesOrderPopular);
                 repository.setMovies(moviesOrderPopular, MainActivity.ORDER_POPULAR);
