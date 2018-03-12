@@ -1,4 +1,4 @@
-package com.example.jagoda.popularmovies.view;
+package com.example.jagoda.popularmovies.view.main;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -13,24 +13,27 @@ import android.view.MenuItem;
 
 import com.example.jagoda.popularmovies.R;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
-import com.example.jagoda.popularmovies.presenter.MainPresenter;
+import com.example.jagoda.popularmovies.model.data.DatabaseSingleton;
+import com.example.jagoda.popularmovies.presenter.main.MainPresenter;
 
 public class MainActivity extends AppCompatActivity {
 
     //Number of columns in Grid Layout of Posters Recycler View for portrait and landscape orientation
-    public static final int COLUMN_NUM_PORT = 3;
+    public static final int COLUMN_NUM_PORT = 2;
     public static final int COLUMN_NUM_LAND = 4;
 
     //Key to save sort order to Shared Preferences
     public static final String KEY_SORT_ORDER = "sort_order";
-    //Values used for order: popular/top rated in Shared Preferences
+    //Values used for order: popular/top rated/favourites in Shared Preferences
     public static final int ORDER_POPULAR = 1;
     public static final int ORDER_TOP_RATED = 2;
+    public static final int ORDER_FAVOURITES = 3;
 
 
     private PostersAdapter adapter;
     private MainPresenter presenter;
-    private MoviesSingleton repository;
+    private MoviesSingleton moviesSingleton;
+    private DatabaseSingleton databaseSingleton;
 
     private RecyclerView postersRV;
 
@@ -42,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
         postersRV = findViewById(R.id.posters_rv);
         setPostersRvProperties();
 
-        repository = MoviesSingleton.getInstance(getApplicationContext());
+        moviesSingleton = MoviesSingleton.getInstance(getApplicationContext());
+        databaseSingleton = DatabaseSingleton.getInstance(getApplicationContext());
 
-        presenter = new MainPresenter(adapter, repository);
+        presenter = new MainPresenter(adapter, moviesSingleton,databaseSingleton);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int sortOrder = preferences.getInt(KEY_SORT_ORDER, ORDER_POPULAR);
@@ -78,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
             PreferenceManager.getDefaultSharedPreferences(this).edit().
                     putInt(KEY_SORT_ORDER, ORDER_TOP_RATED).apply();
             return true;
+        }
+
+        if(itemId == R.id.action_favourites) {
+            presenter.setMoviesToAdapter(ORDER_FAVOURITES);
+            PreferenceManager.getDefaultSharedPreferences(this).edit().
+                    putInt(KEY_SORT_ORDER, ORDER_FAVOURITES).apply();
         }
 
         return super.onOptionsItemSelected(item);

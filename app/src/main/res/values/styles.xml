@@ -21,6 +21,11 @@
         <item name="android:textColor">@color/trailer_text_selector</item>
     </style>
 
+
+    <style name="ReviewAuthorTextStyle" parent="DetailBottomTextStyle">
+        <item name="android:textColor">@color/mandyDark</item>
+    </style>
+
     <style name="RatingBar" parent="@style/Widget.AppCompat.RatingBar.Small">
         <item name="colorControlNormal">@color/whisper</item>
         <item name="colorControlActivated">@color/rose</item>

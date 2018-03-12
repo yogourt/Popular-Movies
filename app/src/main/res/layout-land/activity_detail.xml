@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:background="@color/quartz"
-    tools:context="com.example.jagoda.popularmovies.view.DetailActivity"
+    android:baselineAligned="false"
+    tools:context="com.example.jagoda.popularmovies.view.detail.DetailActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <include

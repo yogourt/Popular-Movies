@@ -1,4 +1,4 @@
-package com.example.jagoda.popularmovies.presenter;
+package com.example.jagoda.popularmovies.presenter.detail;
 
 
 import android.util.Log;
@@ -9,8 +9,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.Video;
-import com.example.jagoda.popularmovies.model.Review;
-import com.example.jagoda.popularmovies.view.DetailActivity;
+import com.example.jagoda.popularmovies.presenter.main.MainPresenter;
+import com.example.jagoda.popularmovies.view.detail.TrailersFragment;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -20,27 +20,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.jagoda.popularmovies.presenter.detail.DetailPresenter.RESULTS_JSON;
 
-public class DetailPresenter {
+/*
+ * Presenter for Trailers Fragment
+ */
+public class TrailersFragmentPresenter {
 
-    public static final String BASE_MOVIE_URL = "https://api.themoviedb.org/3/movie/";
+
     public static final String PATH_VIDEOS_API_KEY = "/videos?api_key=";
 
+    // this key is used to differentiate trailers from all videos taken from theMovieDb.org database
+    // in onTrailersLoaded() method
     public static final String TYPE_TRAILER = "Trailer";
 
-    //Key to access results from JSON String that contains some additional information
-    public static final String RESULTS_JSON = "results";
-
-    private DetailActivity activity;
     private MoviesSingleton singleton;
+    private TrailersFragment fragment;
 
-    public DetailPresenter(DetailActivity activity, MoviesSingleton singleton) {
-        this.activity = activity;
+    public TrailersFragmentPresenter(TrailersFragment fragment, MoviesSingleton singleton) {
+
+        this.fragment = fragment;
         this.singleton = singleton;
     }
 
+    /*
+     * Method to fetch trailers from theMovieDb.org database. After that they are passed to Trailers
+     * Fragment in a callback
+     */
     public void fetchTrailers(int movieId) {
-        String url = BASE_MOVIE_URL + movieId + PATH_VIDEOS_API_KEY + MainPresenter.API_KEY;
+        String url = DetailPresenter.BASE_MOVIE_URL + movieId + PATH_VIDEOS_API_KEY + MainPresenter.API_KEY;
         StringRequest request = new StringRequest(Request.Method.GET, url, onTrailersLoaded, onLoadError);
         singleton.addToRequestQueue(request);
     }
@@ -65,9 +73,9 @@ public class DetailPresenter {
                     }
                 }
 
-               // activity.createTrailerLv(trailers);
+                fragment.fillTrailerLv(trailers);
 
-                Log.i("DetailPresenter", "Trailers fetched");
+                Log.i("TrailersFrgPresenter", "Trailers fetched");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -81,7 +89,8 @@ public class DetailPresenter {
     private final Response.ErrorListener onLoadError = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.e("DetailPresenter", error.toString());
+            Log.e("TrailersFrgPresenter", error.toString());
         }
     };
+
 }

@@ -7,11 +7,11 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.example.jagoda.popularmovies.view.MainActivity;
+import com.example.jagoda.popularmovies.view.main.MainActivity;
 import java.util.List;
 
 /* This is Singleton class for movies that allows caching data
- * and that preserves RequestQueue object for network requests.
+ * and that preserves RequestQueue singleton for network requests.
 */
 public class MoviesSingleton {
 
@@ -23,7 +23,7 @@ public class MoviesSingleton {
     private List<Movie> moviesOrderPopular;
     private List<Movie> moviesOrderTopRated;
 
-    Context appContext;
+    private Context appContext;
 
     //private constructor can be called only inside this class
     private MoviesSingleton(Context appContext) {
@@ -53,6 +53,9 @@ public class MoviesSingleton {
     }
 
 
+    /*
+     * getMovies() is method called by Main Presenter
+     */
     public List<Movie> getMovies(int sortOrder) {
 
         if (sortOrder == MainActivity.ORDER_POPULAR) {
@@ -62,6 +65,9 @@ public class MoviesSingleton {
         }
     }
 
+    /*
+     * setMovies() is method called by Main Presenter
+     */
     public  void setMovies(List<Movie> movies, int sortOrder) {
 
         if (sortOrder == MainActivity.ORDER_POPULAR) {

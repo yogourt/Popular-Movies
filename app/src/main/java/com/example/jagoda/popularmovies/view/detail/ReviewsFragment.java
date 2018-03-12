@@ -1,24 +1,25 @@
-package com.example.jagoda.popularmovies.view;
+package com.example.jagoda.popularmovies.view.detail;
 
 
-import android.os.Build;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.TextViewCompat;
-import android.text.Layout;
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.example.jagoda.popularmovies.R;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.Review;
-import com.example.jagoda.popularmovies.presenter.ReviewsFragmentPresenter;
+import com.example.jagoda.popularmovies.presenter.detail.ReviewsFragmentPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,8 +33,10 @@ public class ReviewsFragment extends Fragment {
 
     ReviewsFragmentPresenter presenter;
 
-    @BindView(R.id.reviews_linear_layout)
-    LinearLayout reviewsLayout;
+    @BindView(R.id.reviews_list_view)
+    ListView reviewsLv;
+
+    private Context context;
 
     public ReviewsFragment() {
     }
@@ -43,6 +46,7 @@ public class ReviewsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         MoviesSingleton singleton = MoviesSingleton.getInstance(getActivity().getApplicationContext());
         presenter = new ReviewsFragmentPresenter(this, singleton);
+        context = getContext();
     }
 
     @Override
@@ -58,21 +62,30 @@ public class ReviewsFragment extends Fragment {
         return view;
     }
 
-    public synchronized void fillReviewsLayout(List<Review> reviews) {
+    /*
+     * Method to create reviews list, that contain review content and author.
+     * This is a callback method called by Reviews Fragment Presenter when reviews list is fetched.
+     */
+    public synchronized void fillReviewsLv(List<Review> reviews) {
 
         if(reviews.size() == 0) return;
 
-        for(Review review: reviews) {
+        String KEY_AUTHOR = "author";
+        String KEY_CONTENT = "content";
+        List<Map<String, String>> data = new ArrayList<>();
 
-            TextView reviewTv = new TextView(this.getContext());
-            reviewTv.setText(review.getContent());
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                reviewTv.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
-            }
-            TextViewCompat.setTextAppearance(reviewTv, R.style.DetailBottomTextStyle);
-            reviewsLayout.addView(reviewTv);
-            reviewsLayout.requestLayout();
+        for(Review review: reviews) {
+            Map<String,String> reviewData = new ArrayMap<>();
+            reviewData.put(KEY_AUTHOR, "~" + review.getAuthor());
+            reviewData.put(KEY_CONTENT, review.getContent());
+            data.add(reviewData);
         }
+        String[] from = {KEY_AUTHOR, KEY_CONTENT};
+        int[] to = {R.id.author_text_view, R.id.content_text_view};
+
+        SimpleAdapter adapter = new SimpleAdapter(context, data,
+                R.layout.review_list_item, from, to);
+        reviewsLv.setAdapter(adapter);
 
     }
 

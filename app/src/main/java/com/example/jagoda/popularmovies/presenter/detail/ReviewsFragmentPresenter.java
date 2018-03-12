@@ -1,4 +1,4 @@
-package com.example.jagoda.popularmovies.presenter;
+package com.example.jagoda.popularmovies.presenter.detail;
 
 import android.util.Log;
 
@@ -8,7 +8,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.Review;
-import com.example.jagoda.popularmovies.view.ReviewsFragment;
+import com.example.jagoda.popularmovies.presenter.main.MainPresenter;
+import com.example.jagoda.popularmovies.view.detail.ReviewsFragment;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -17,6 +18,9 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+ * Presenter for Reviews Fragment
+ */
 public class ReviewsFragmentPresenter {
 
     public static final String PATH_REVIEWS_API_KEY = "/reviews?api_key=";
@@ -29,6 +33,10 @@ public class ReviewsFragmentPresenter {
         this.singleton = singleton;
     }
 
+    /*
+     * Method to fetch reviews from theMovieDb.org database. After that they are passed to Reviews
+     * Fragment in a callback
+     */
     public void fetchReviews(int movieId) {
         String url = DetailPresenter.BASE_MOVIE_URL + movieId + PATH_REVIEWS_API_KEY + MainPresenter.API_KEY;
         StringRequest request = new StringRequest(Request.Method.GET, url, onReviewsLoaded, onLoadError);
@@ -46,7 +54,7 @@ public class ReviewsFragmentPresenter {
 
                 List<Review> reviews = Arrays.asList(new Gson().fromJson(results, Review[].class));
 
-                fragment.fillReviewsLayout(reviews);
+                fragment.fillReviewsLv(reviews);
 
                 Log.i("ReviewsFragPresenter", "Reviews fetched");
 

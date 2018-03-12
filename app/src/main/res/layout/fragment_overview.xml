@@ -46,15 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/overview_text_view" />
 
-
-
-        <ListView
-            android:id="@+id/trailers_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/release_date_label" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
 
