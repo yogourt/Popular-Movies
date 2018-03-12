@@ -82,7 +82,8 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
                 .load(imageUrl)
                 .into(holder.posterIv);
 
-        holder.posterIv.setContentDescription(getString(R.string.content_desc_poster) + title);
+        String title = movies.get(position).getTitle();
+        holder.posterIv.setContentDescription(context.getString(R.string.content_desc_poster) + title);
 
     }
 
