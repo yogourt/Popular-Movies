@@ -1,4 +1,4 @@
-package com.example.jagoda.popularmovies.view;
+package com.example.jagoda.popularmovies.view.detail;
 
 
 import android.os.Bundle;

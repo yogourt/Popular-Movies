@@ -1,9 +1,12 @@
 package com.example.jagoda.popularmovies.model;
 
+/*
+ * Model class for fetching data from JSON using Gson library.
+ */
 public class Review {
 
-    String author;
-    String content;
+    private String author;
+    private String content;
 
     public String getAuthor() {
         return author;

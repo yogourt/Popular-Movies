@@ -1,4 +1,4 @@
-package com.example.jagoda.popularmovies.view;
+package com.example.jagoda.popularmovies.view.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,10 @@ import android.widget.ImageView;
 
 import com.example.jagoda.popularmovies.R;
 import com.example.jagoda.popularmovies.model.Movie;
+import com.example.jagoda.popularmovies.view.detail.DetailActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -23,6 +25,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
     //base URL used to fetch poster's image in onBindViewHolder
     public static final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
 
+    //Keys used to pass data in Detail Activity Intent
     public static final String KEY_ID = "id";
     public static final String KEY_TITLE = "title";
     public static final String KEY_ORIGINAL_TITLE = "original_title";
@@ -38,8 +41,23 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
         this.context = context;
     }
 
+    /*
+     * setMovies is called each time user change sort order to popular/top rated
+     */
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
+        notifyDataSetChanged();
+    }
+
+    /*
+     * addToMovies is called when sort order is favourites. Each movie has to be added separately
+     * to the adapter's list
+     */
+    public void addToMovies(Movie movie) {
+        if(movies == null) {
+            movies = new ArrayList<>();
+        }
+        movies.add(movie);
         notifyDataSetChanged();
     }
 
@@ -48,9 +66,8 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.movies_list_item;
         LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
+        View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
         return new PosterViewHolder(view);
     }
 
@@ -65,6 +82,8 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
                 .load(imageUrl)
                 .into(holder.posterIv);
 
+        holder.posterIv.setContentDescription(getString(R.string.content_desc_poster) + title);
+
     }
 
     @Override
@@ -76,7 +95,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
 
     class PosterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //Image View to hold the poster
+        // Image View to hold the poster
         ImageView posterIv;
 
         public PosterViewHolder(View itemView) {
@@ -85,6 +104,10 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
             itemView.setOnClickListener(this);
         }
 
+        /*
+         * When the poster is clicked, Detail Activity is started with movie's detail data in
+         * intent.
+         */
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();

@@ -1,8 +1,8 @@
 package com.example.jagoda.popularmovies.model;
 
 /*
- * Model class for fetching data from JSON using GSON library. It contains fields with required
- * movie details. It uses @SerializedName annotation if the field's name when it's different
+ * Model class for fetching data from JSON using Gson library. It contains fields with required
+ * movie details. It uses @SerializedName annotation for the field's name when it's different
  * from property in JSON.
  */
 

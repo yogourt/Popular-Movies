@@ -10,7 +10,7 @@
     android:drawableStart="@drawable/ic_video_library"
     android:drawableTint="@color/trailer_text_selector"
     tools:text=" Trailer 1 "
-    android:paddingTop="@dimen/detail_vertical_padding"
+    android:paddingBottom="@dimen/detail_vertical_padding"
     style="@style/TrailerTextStyle"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/release_date_label" />
