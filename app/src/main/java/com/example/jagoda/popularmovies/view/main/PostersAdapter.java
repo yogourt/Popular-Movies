@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.jagoda.popularmovies.R;
+import com.example.jagoda.popularmovies.contracts.MainContract;
 import com.example.jagoda.popularmovies.model.Movie;
 import com.example.jagoda.popularmovies.view.detail.DetailActivity;
 import com.squareup.picasso.Picasso;
@@ -20,7 +21,9 @@ import java.util.List;
 /*
  * Adapter Class for Recycler View showing movies' posters in Main Activity
  */
-public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterViewHolder> {
+public class PostersAdapter
+        extends RecyclerView.Adapter<PostersAdapter.PosterViewHolder>
+        implements MainContract.View.Adapter {
 
     //base URL used to fetch poster's image in onBindViewHolder
     public static final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
@@ -44,6 +47,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
     /*
      * setMovies is called each time user change sort order to popular/top rated
      */
+    @Override
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
         notifyDataSetChanged();
@@ -53,6 +57,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PosterVi
      * addToMovies is called when sort order is favourites. Each movie has to be added separately
      * to the adapter's list
      */
+    @Override
     public void addToMovies(Movie movie) {
         if(movies == null) {
             movies = new ArrayList<>();

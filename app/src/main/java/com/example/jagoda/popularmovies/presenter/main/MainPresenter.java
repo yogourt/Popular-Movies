@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.jagoda.popularmovies.contracts.MainContract;
 import com.example.jagoda.popularmovies.model.Movie;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.data.DatabaseSingleton;
@@ -30,14 +31,14 @@ import static com.example.jagoda.popularmovies.view.main.MainActivity.ORDER_TOP_
 /*
  * Presenter for Main Activity
  */
-public class MainPresenter {
+public class MainPresenter implements MainContract.Presenter {
 
     public static final String API_KEY = "YOUR_API_KEY";
 
     // Key to access results from JSON String that contains some additional information
     public static final String RESULTS_JSON = "results";
 
-    private PostersAdapter adapter;
+    private MainContract.View.Adapter adapter;
     private MoviesSingleton moviesSingleton;
     private DatabaseSingleton databaseSingleton;
 
@@ -60,6 +61,7 @@ public class MainPresenter {
      * there is no movies cached and fetchMoviesAndSetToAdapter() is called where
      * the network request is made.
      */
+    @Override
     public void setMoviesToAdapter(int sortOrder) {
 
         if(sortOrder == ORDER_FAVOURITES) {

@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.jagoda.popularmovies.contracts.TrailersContract;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.Video;
 import com.example.jagoda.popularmovies.presenter.main.MainPresenter;
@@ -25,7 +26,7 @@ import static com.example.jagoda.popularmovies.presenter.detail.DetailPresenter.
 /*
  * Presenter for Trailers Fragment
  */
-public class TrailersFragmentPresenter {
+public class TrailersFragmentPresenter implements TrailersContract.Presenter {
 
 
     public static final String PATH_VIDEOS_API_KEY = "/videos?api_key=";
@@ -35,7 +36,7 @@ public class TrailersFragmentPresenter {
     public static final String TYPE_TRAILER = "Trailer";
 
     private MoviesSingleton singleton;
-    private TrailersFragment fragment;
+    private TrailersContract.View fragment;
 
     public TrailersFragmentPresenter(TrailersFragment fragment, MoviesSingleton singleton) {
 
@@ -47,6 +48,7 @@ public class TrailersFragmentPresenter {
      * Method to fetch trailers from theMovieDb.org database. After that they are passed to Trailers
      * Fragment in a callback
      */
+    @Override
     public void fetchTrailers(int movieId) {
         String url = DetailPresenter.BASE_MOVIE_URL + movieId + PATH_VIDEOS_API_KEY + MainPresenter.API_KEY;
         StringRequest request = new StringRequest(Request.Method.GET, url, onTrailersLoaded, onLoadError);

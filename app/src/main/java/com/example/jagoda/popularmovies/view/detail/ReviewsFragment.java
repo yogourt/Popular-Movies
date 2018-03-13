@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.example.jagoda.popularmovies.R;
+import com.example.jagoda.popularmovies.contracts.ReviewsContract;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.Review;
 import com.example.jagoda.popularmovies.presenter.detail.ReviewsFragmentPresenter;
@@ -27,11 +28,11 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReviewsFragment extends Fragment {
+public class ReviewsFragment extends Fragment implements ReviewsContract.View{
 
     public static final String KEY_MOVIE_ID = "movieId";
 
-    ReviewsFragmentPresenter presenter;
+    ReviewsContract.Presenter presenter;
 
     @BindView(R.id.reviews_list_view)
     ListView reviewsLv;
@@ -66,7 +67,8 @@ public class ReviewsFragment extends Fragment {
      * Method to create reviews list, that contain review content and author.
      * This is a callback method called by Reviews Fragment Presenter when reviews list is fetched.
      */
-    public synchronized void fillReviewsLv(List<Review> reviews) {
+    @Override
+    public void fillReviewsLv(List<Review> reviews) {
 
         if(reviews.size() == 0) return;
 

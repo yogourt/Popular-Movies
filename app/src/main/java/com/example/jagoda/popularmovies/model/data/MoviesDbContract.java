@@ -3,7 +3,7 @@ package com.example.jagoda.popularmovies.model.data;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-public class MoviesContract {
+public class MoviesDbContract {
 
     // The "Content authority" is a name for the entire content provider.
     // It's the package name for the app, which is guaranteed to be unique on the Play Store.

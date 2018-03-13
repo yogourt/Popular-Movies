@@ -13,9 +13,7 @@ import com.example.jagoda.popularmovies.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class OverviewFragment extends Fragment {
 
     public static final String KEY_OVERVIEW = "overview";
@@ -27,7 +25,6 @@ public class OverviewFragment extends Fragment {
     TextView releaseDateTv;
 
     public OverviewFragment() {
-        // Required empty public constructor
     }
 
 

@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.jagoda.popularmovies.contracts.ReviewsContract;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.Review;
 import com.example.jagoda.popularmovies.presenter.main.MainPresenter;
@@ -21,12 +22,12 @@ import java.util.List;
 /*
  * Presenter for Reviews Fragment
  */
-public class ReviewsFragmentPresenter {
+public class ReviewsFragmentPresenter implements ReviewsContract.Presenter {
 
     public static final String PATH_REVIEWS_API_KEY = "/reviews?api_key=";
 
     MoviesSingleton singleton;
-    ReviewsFragment fragment;
+    ReviewsContract.View fragment;
 
     public ReviewsFragmentPresenter (ReviewsFragment fragment, MoviesSingleton singleton) {
         this.fragment = fragment;
@@ -37,6 +38,7 @@ public class ReviewsFragmentPresenter {
      * Method to fetch reviews from theMovieDb.org database. After that they are passed to Reviews
      * Fragment in a callback
      */
+    @Override
     public void fetchReviews(int movieId) {
         String url = DetailPresenter.BASE_MOVIE_URL + movieId + PATH_REVIEWS_API_KEY + MainPresenter.API_KEY;
         StringRequest request = new StringRequest(Request.Method.GET, url, onReviewsLoaded, onLoadError);

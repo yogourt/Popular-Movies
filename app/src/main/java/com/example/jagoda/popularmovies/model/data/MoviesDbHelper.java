@@ -21,17 +21,17 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         final String CREATE_FAVOURITE_MOVIES_TABLE =
-                "CREATE TABLE " + MoviesContract.FavouriteMoviesEntry.TABLE_NAME + " (" +
-                        MoviesContract.FavouriteMoviesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        MoviesContract.FavouriteMoviesEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
-                        MoviesContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID + " INTEGER NOT NULL);";
+                "CREATE TABLE " + MoviesDbContract.FavouriteMoviesEntry.TABLE_NAME + " (" +
+                        MoviesDbContract.FavouriteMoviesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        MoviesDbContract.FavouriteMoviesEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
+                        MoviesDbContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID + " INTEGER NOT NULL);";
 
         sqLiteDatabase.execSQL(CREATE_FAVOURITE_MOVIES_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoviesContract.FavouriteMoviesEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MoviesDbContract.FavouriteMoviesEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }

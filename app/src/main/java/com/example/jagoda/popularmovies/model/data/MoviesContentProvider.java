@@ -26,7 +26,7 @@ public class MoviesContentProvider extends ContentProvider {
     private static UriMatcher buildUriMatcher() {
 
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        matcher.addURI(MoviesContract.CONTENT_AUTHORITY, MoviesContract.PATH_FAVOURITE_MOVIES,
+        matcher.addURI(MoviesDbContract.CONTENT_AUTHORITY, MoviesDbContract.PATH_FAVOURITE_MOVIES,
                 CODE_FAVOURITE_MOVIES_TABLE);
 
         return matcher;
@@ -49,7 +49,7 @@ public class MoviesContentProvider extends ContentProvider {
         switch (code) {
             case CODE_FAVOURITE_MOVIES_TABLE:
                 cursor = dbHelper.getReadableDatabase().query(
-                        MoviesContract.FavouriteMoviesEntry.TABLE_NAME,
+                        MoviesDbContract.FavouriteMoviesEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -83,12 +83,12 @@ public class MoviesContentProvider extends ContentProvider {
         switch (code) {
             case CODE_FAVOURITE_MOVIES_TABLE:
                 int _id = (int) dbHelper.getWritableDatabase().insert(
-                        MoviesContract.FavouriteMoviesEntry.TABLE_NAME,
+                        MoviesDbContract.FavouriteMoviesEntry.TABLE_NAME,
                         null,
                         contentValues);
 
                 if(_id != -1) {
-                    returnUri = ContentUris.withAppendedId(MoviesContract.FavouriteMoviesEntry.CONTENT_URI, _id);
+                    returnUri = ContentUris.withAppendedId(MoviesDbContract.FavouriteMoviesEntry.CONTENT_URI, _id);
                     break;
                 } else {
                     throw new SQLiteException("Failed to insert row into " + uri);
@@ -112,7 +112,7 @@ public class MoviesContentProvider extends ContentProvider {
         switch (code) {
             case CODE_FAVOURITE_MOVIES_TABLE:
                 deletedItems = dbHelper.getWritableDatabase().delete(
-                        MoviesContract.FavouriteMoviesEntry.TABLE_NAME,
+                        MoviesDbContract.FavouriteMoviesEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
                 break;
@@ -137,7 +137,7 @@ public class MoviesContentProvider extends ContentProvider {
         switch (code) {
             case CODE_FAVOURITE_MOVIES_TABLE:
                 updatedItems = dbHelper.getWritableDatabase().update(
-                    MoviesContract.FavouriteMoviesEntry.TABLE_NAME,
+                    MoviesDbContract.FavouriteMoviesEntry.TABLE_NAME,
                     contentValues,
                     selection,
                     selectionArgs);

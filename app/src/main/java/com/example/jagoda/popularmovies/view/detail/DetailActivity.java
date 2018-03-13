@@ -132,7 +132,7 @@ public class DetailActivity extends AppCompatActivity {
     private void setFavButtonState() {
 
         // check if movie is in favourites already
-        if(presenter.IsPresentInFavourites()) {
+        if(presenter.isPresentInFavourites()) {
             favButton.setImageResource(R.drawable.ic_favorite);
             favImageId = R.drawable.ic_favorite;
         } else {

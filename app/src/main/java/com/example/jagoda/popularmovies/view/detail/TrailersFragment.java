@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.jagoda.popularmovies.R;
+import com.example.jagoda.popularmovies.contracts.TrailersContract;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.Video;
 import com.example.jagoda.popularmovies.presenter.detail.TrailersFragmentPresenter;
@@ -24,10 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class TrailersFragment extends Fragment {
+public class TrailersFragment extends Fragment implements TrailersContract.View {
 
     public static final String KEY_MOVIE_ID = "movieId";
     public static final String BASE_YOUTUBE_URL = "https://www.youtube.com/watch?v=";
@@ -47,7 +45,7 @@ public class TrailersFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         MoviesSingleton singleton = MoviesSingleton.getInstance(getActivity().getApplicationContext());
-        TrailersFragmentPresenter presenter = new TrailersFragmentPresenter(this, singleton);
+        TrailersContract.Presenter presenter = new TrailersFragmentPresenter(this, singleton);
 
         Bundle bundle = getArguments();
         if(bundle != null) {
@@ -62,6 +60,7 @@ public class TrailersFragment extends Fragment {
      * Method to create trailers labels and to set OnItemClickListener.
      * This is a callback method called by Trailers Fragment Presenter when trailers list is fetched.
      */
+    @Override
     public synchronized void fillTrailerLv(final List<Video> trailers) {
 
         int trailerNum = trailers.size();

@@ -27,30 +27,30 @@ public class DatabaseSingleton {
     public synchronized void addMovieToDb(@NonNull String title, int movieId) {
 
         ContentValues values = new ContentValues();
-        values.put(MoviesContract.FavouriteMoviesEntry.COLUMN_TITLE, title);
-        values.put(MoviesContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID, movieId);
-        context.getContentResolver().insert(MoviesContract.FavouriteMoviesEntry.CONTENT_URI, values);
+        values.put(MoviesDbContract.FavouriteMoviesEntry.COLUMN_TITLE, title);
+        values.put(MoviesDbContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID, movieId);
+        context.getContentResolver().insert(MoviesDbContract.FavouriteMoviesEntry.CONTENT_URI, values);
 
     }
 
     public synchronized int deleteMovieFromDb(int movieId) {
 
-        String selection = MoviesContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID + "=?";
+        String selection = MoviesDbContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID + "=?";
         String[] selectionArgs = {String.valueOf(movieId)};
 
         return context.getContentResolver().delete(
-                MoviesContract.FavouriteMoviesEntry.CONTENT_URI,
+                MoviesDbContract.FavouriteMoviesEntry.CONTENT_URI,
                 selection,
                 selectionArgs);
     }
 
     public synchronized boolean isPresentInDb(int movieId) {
 
-        String selection = MoviesContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID + "=?";
+        String selection = MoviesDbContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID + "=?";
         String[] selectionArgs = {String.valueOf(movieId)};
 
         Cursor cursor = context.getContentResolver().query(
-                MoviesContract.FavouriteMoviesEntry.CONTENT_URI,
+                MoviesDbContract.FavouriteMoviesEntry.CONTENT_URI,
                 null,
                 selection,
                 selectionArgs,
@@ -69,9 +69,9 @@ public class DatabaseSingleton {
      */
     public Cursor fetchAllFavourites() {
 
-        String[] projection = {MoviesContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID};
+        String[] projection = {MoviesDbContract.FavouriteMoviesEntry.COLUMN_MOVIE_ID};
         Cursor cursor = context.getContentResolver().query(
-                MoviesContract.FavouriteMoviesEntry.CONTENT_URI,
+                MoviesDbContract.FavouriteMoviesEntry.CONTENT_URI,
                 projection,
                 null,
                 null,

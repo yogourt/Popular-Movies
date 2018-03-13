@@ -22,7 +22,8 @@ public class DetailPagerAdapter extends FragmentPagerAdapter {
     private int movieId;
     private Context context;
 
-    public DetailPagerAdapter(Context context, FragmentManager manager, String overview, String releaseDate, int movieId) {
+    public DetailPagerAdapter(Context context, FragmentManager manager, String overview,
+                              String releaseDate, int movieId) {
         super(manager);
         this.context = context;
         this.overview = overview;

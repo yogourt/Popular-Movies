@@ -1,12 +1,13 @@
 package com.example.jagoda.popularmovies.presenter.detail;
 
 
+import com.example.jagoda.popularmovies.contracts.DetailContract;
 import com.example.jagoda.popularmovies.model.data.DatabaseSingleton;
 
 /*
  * Presenter for top Detail Activity
  */
-public class DetailPresenter {
+public class DetailPresenter implements DetailContract.Presenter {
 
     public static final String BASE_MOVIE_URL = "https://api.themoviedb.org/3/movie/";
 
@@ -21,15 +22,18 @@ public class DetailPresenter {
         this.movieId = movieId;
     }
 
+    @Override
     public void deleteMovieFromFavourites() {
         singleton.deleteMovieFromDb(movieId);
     }
 
+    @Override
     public void addMovieToFavourites(String title) {
         singleton.addMovieToDb(title, movieId);
     }
 
-    public boolean IsPresentInFavourites() {
+    @Override
+    public boolean isPresentInFavourites() {
         return singleton.isPresentInDb(movieId);
     }
 
