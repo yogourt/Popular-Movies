@@ -17,4 +17,7 @@
     <string name="fav_button_content_desc">Add movie to favourites</string>
     <string name="unfav_button_content_desc">Remove movie from favourites</string>
 
+    <string name="snackbar_fav">Movie was added to favourites</string>
+    <string name="snackbar_unfav">Movie was deleted from favourites</string>
+
 </resources>

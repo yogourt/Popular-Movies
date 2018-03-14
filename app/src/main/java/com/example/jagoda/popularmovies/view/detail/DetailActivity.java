@@ -1,6 +1,9 @@
 package com.example.jagoda.popularmovies.view.detail;
 
 import android.content.Intent;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +40,8 @@ public class DetailActivity extends AppCompatActivity {
     ViewPager detailViewPager;
     @BindView(R.id.detail_tab_layout)
     TabLayout detailTabs;
+    @BindView(R.id.detail_coordinator_layout)
+    CoordinatorLayout detailCoordinatorLayout;
 
     private Intent intentThatStartedActivity;
 
@@ -117,6 +122,8 @@ public class DetailActivity extends AppCompatActivity {
             favButton.setContentDescription(getString(R.string.unfav_button_content_desc));
             favImageId = R.drawable.ic_favorite;
             presenter.addMovieToFavourites(title);
+            Snackbar.make(detailCoordinatorLayout, getString(R.string.snackbar_fav),
+                    BaseTransientBottomBar.LENGTH_SHORT).show();
         }
         // else movie was deleted from favourites
         else {
@@ -124,6 +131,8 @@ public class DetailActivity extends AppCompatActivity {
             favButton.setContentDescription(getString(R.string.fav_button_content_desc));
             favImageId = R.drawable.ic_favorite_border;
             presenter.deleteMovieFromFavourites();
+            Snackbar.make(detailCoordinatorLayout, getString(R.string.snackbar_unfav),
+                    BaseTransientBottomBar.LENGTH_SHORT).show();
         }
 
     }
