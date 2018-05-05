@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/thumbnail_image_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/thumbnail_height"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/interstellar"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/title_text_view"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="@dimen/title_top_margin"
@@ -48,8 +48,8 @@
     <ImageView
         android:id="@+id/fav_button"
         android:layout_width="@dimen/fav_button_size"
-        android:layout_marginTop="@dimen/fav_button_top_margin"
         android:layout_height="@dimen/fav_button_size"
+        android:layout_marginTop="@dimen/fav_button_top_margin"
         android:contentDescription="@string/fav_button_content_desc"
         android:onClick="changeFavButtonState"
         android:tint="@color/trailer_text_selector"

@@ -9,4 +9,5 @@
     <dimen name="reviews_space">32dp</dimen>
     <dimen name="fav_button_size">32dp</dimen>
     <dimen name="fav_button_top_margin">4dp</dimen>
+    <dimen name="thumbnail_height">200dp</dimen>
 </resources>

@@ -35,6 +35,7 @@ public class PostersAdapter
     public static final String KEY_RELEASE_DATE = "release_date";
     public static final String KEY_OVERVIEW = "description";
     public static final String KEY_IMAGE_PATH = "image_path";
+    public static final String KEY_BACKDROP_PATH = "backdrop_path";
     public static final String KEY_RATING = "rating";
 
     private Context context;
@@ -125,6 +126,7 @@ public class PostersAdapter
             intentForDetailActivity.putExtra(KEY_ORIGINAL_TITLE, clickedMovie.getOriginalTitle());
             intentForDetailActivity.putExtra(KEY_RELEASE_DATE, clickedMovie.getReleaseDate());
             intentForDetailActivity.putExtra(KEY_IMAGE_PATH, clickedMovie.getPosterPath());
+            intentForDetailActivity.putExtra(KEY_BACKDROP_PATH, clickedMovie.getBackdropPath());
             intentForDetailActivity.putExtra(KEY_OVERVIEW, clickedMovie.getOverview());
             intentForDetailActivity.putExtra(KEY_RATING, clickedMovie.getRating());
 

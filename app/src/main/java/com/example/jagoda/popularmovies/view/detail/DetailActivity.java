@@ -25,13 +25,10 @@ import butterknife.ButterKnife;
 public class DetailActivity extends AppCompatActivity {
 
 
-
     @BindView(R.id.title_text_view)
     TextView titleTv;
-    @BindView(R.id.original_title_text_view)
-    TextView originalTitleTv;
-    @BindView(R.id.poster_thumbnail_image_view)
-    ImageView posterIv;
+    @BindView(R.id.thumbnail_image_view)
+    ImageView thumbnailIv;
     @BindView(R.id.rating_bar)
     RatingBar ratingBar;
     @BindView(R.id.fav_button)
@@ -42,6 +39,8 @@ public class DetailActivity extends AppCompatActivity {
     TabLayout detailTabs;
     @BindView(R.id.detail_coordinator_layout)
     CoordinatorLayout detailCoordinatorLayout;
+
+    public static final String BASE_BACKDROP_IMAGE_URL = "http://image.tmdb.org/t/p/w342/";
 
     private Intent intentThatStartedActivity;
 
@@ -89,22 +88,27 @@ public class DetailActivity extends AppCompatActivity {
      * Helper method to fill all Top Layout views
      */
     private void fillTopDetailLayout() {
-        title = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_TITLE);
-        titleTv.setText(title);
 
-        String originalTitle = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_ORIGINAL_TITLE);
-        if( !originalTitle.equals(title) ) {
-            originalTitleTv.setText(getString(R.string.original_title_label) + " " + originalTitle);
+        String url;
+        if(!getResources().getBoolean(R.bool.is_landscape)) {
+            String backdropPath = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_BACKDROP_PATH);
+            url = BASE_BACKDROP_IMAGE_URL + backdropPath;
+
+        } else {
+            String imagePath = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_IMAGE_PATH);
+            url = PostersAdapter.BASE_IMAGE_URL + imagePath;
+
         }
-
-        String imagePath = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_IMAGE_PATH);
-        String url = PostersAdapter.BASE_IMAGE_URL + imagePath;
 
         Picasso.with(this)
                 .load(url)
-                .into(posterIv);
+                .into(thumbnailIv);
 
-        posterIv.setContentDescription(getString(R.string.content_desc_poster) + title);
+        thumbnailIv.setAlpha(0.35f);
+        thumbnailIv.setContentDescription(getString(R.string.content_desc_poster) + title);
+
+        title = intentThatStartedActivity.getStringExtra(PostersAdapter.KEY_TITLE);
+        titleTv.setText(title);
 
         double rating = intentThatStartedActivity.getDoubleExtra(PostersAdapter.KEY_RATING, 0);
         ratingBar.setRating((float) rating);
@@ -133,6 +137,7 @@ public class DetailActivity extends AppCompatActivity {
             presenter.deleteMovieFromFavourites();
             Snackbar.make(detailCoordinatorLayout, getString(R.string.snackbar_unfav),
                     BaseTransientBottomBar.LENGTH_SHORT).show();
+
         }
 
     }

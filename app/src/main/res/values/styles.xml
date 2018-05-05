@@ -23,7 +23,7 @@
 
 
     <style name="ReviewAuthorTextStyle" parent="DetailBottomTextStyle">
-        <item name="android:textColor">@color/mandyDark</item>
+        <item name="android:textColor">@color/mandy</item>
     </style>
 
     <style name="RatingBar" parent="@style/Widget.AppCompat.RatingBar.Small">
