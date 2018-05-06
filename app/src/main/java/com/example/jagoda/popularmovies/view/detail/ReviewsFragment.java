@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.example.jagoda.popularmovies.R;
 import com.example.jagoda.popularmovies.contracts.ReviewsContract;
@@ -36,6 +37,8 @@ public class ReviewsFragment extends Fragment implements ReviewsContract.View{
 
     @BindView(R.id.reviews_list_view)
     ListView reviewsLv;
+    @BindView(R.id.message_text_view)
+    TextView noReviewsTv;
 
     private Context context;
 
@@ -70,7 +73,11 @@ public class ReviewsFragment extends Fragment implements ReviewsContract.View{
     @Override
     public void fillReviewsLv(List<Review> reviews) {
 
-        if(reviews.size() == 0) return;
+        if(reviews.size() == 0) {
+            reviewsLv.setVisibility(View.GONE);
+            noReviewsTv.setVisibility(View.VISIBLE);
+            return;
+        }
 
         String KEY_AUTHOR = "author";
         String KEY_CONTENT = "content";

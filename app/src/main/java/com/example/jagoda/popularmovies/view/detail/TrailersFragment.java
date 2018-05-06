@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.jagoda.popularmovies.R;
 import com.example.jagoda.popularmovies.contracts.TrailersContract;
@@ -32,6 +33,8 @@ public class TrailersFragment extends Fragment implements TrailersContract.View 
 
     @BindView(R.id.trailers_list_view)
     ListView trailerLv;
+    @BindView(R.id.message_text_view)
+    TextView noTrailersTv;
 
     public TrailersFragment() {
     }
@@ -64,7 +67,11 @@ public class TrailersFragment extends Fragment implements TrailersContract.View 
     public synchronized void fillTrailerLv(final List<Video> trailers) {
 
         int trailerNum = trailers.size();
-        if (trailerNum == 0) return;
+        if (trailerNum == 0) {
+            trailerLv.setVisibility(View.GONE);
+            noTrailersTv.setVisibility(View.VISIBLE);
+            return;
+        }
 
         List<String> trailerLabels = new ArrayList<>();
 

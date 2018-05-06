@@ -26,7 +26,7 @@
         android:layout_marginTop="@dimen/title_top_margin"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/mandy"
+        android:textColor="@color/mandy_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +52,7 @@
         android:layout_marginTop="@dimen/fav_button_top_margin"
         android:contentDescription="@string/fav_button_content_desc"
         android:onClick="changeFavButtonState"
-        android:tint="@color/trailer_text_selector"
+        android:tint="@color/button_text_selector"
         app:layout_constraintEnd_toEndOf="@+id/rating_bar"
         app:layout_constraintTop_toBottomOf="@+id/title_text_view"
         app:srcCompat="@drawable/ic_favorite_border" />

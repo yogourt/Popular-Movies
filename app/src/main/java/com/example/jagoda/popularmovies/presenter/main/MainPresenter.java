@@ -38,13 +38,15 @@ public class MainPresenter implements MainContract.Presenter {
     // Key to access results from JSON String that contains some additional information
     public static final String RESULTS_JSON = "results";
 
-    private MainContract.View.Adapter adapter;
+    private MainContract.View activity;
+    private MainContract.Adapter adapter;
     private MoviesSingleton moviesSingleton;
     private DatabaseSingleton databaseSingleton;
 
 
-    public MainPresenter(PostersAdapter adapter, MoviesSingleton moviesSingleton,
+    public MainPresenter(MainActivity activity, PostersAdapter adapter, MoviesSingleton moviesSingleton,
                          DatabaseSingleton databaseSingleton) {
+        this.activity = activity;
         this.adapter = adapter;
         this.moviesSingleton = moviesSingleton;
         this.databaseSingleton = databaseSingleton;
@@ -68,7 +70,10 @@ public class MainPresenter implements MainContract.Presenter {
             adapter.setMovies(null);
             Cursor cursor = databaseSingleton.fetchAllFavourites();
 
-            if(cursor == null) return;
+            if(cursor == null || cursor.getCount() == 0) {
+                activity.showMessageNoFavMovies();
+                return;
+            }
 
             // for every movie in cursor add it to posters adapter in method fetchMovie which
             // is making network request to theMovieDb.org database

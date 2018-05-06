@@ -20,4 +20,8 @@
     <string name="snackbar_fav">Movie was added to favourites</string>
     <string name="snackbar_unfav">Movie was deleted from favourites</string>
 
+    <string name="message_no_reviews">No reviews</string>
+    <string name="message_no_trailers">No trailers</string>
+    <string name="message_no_fav">No movies added to favourites</string>
+
 </resources>

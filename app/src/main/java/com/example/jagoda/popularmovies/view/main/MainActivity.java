@@ -10,13 +10,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.jagoda.popularmovies.R;
+import com.example.jagoda.popularmovies.contracts.MainContract;
 import com.example.jagoda.popularmovies.model.MoviesSingleton;
 import com.example.jagoda.popularmovies.model.data.DatabaseSingleton;
 import com.example.jagoda.popularmovies.presenter.main.MainPresenter;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MainActivity extends AppCompatActivity implements MainContract.View{
 
     //Number of columns in Grid Layout of Posters Recycler View for portrait and landscape orientation
     public static final int COLUMN_NUM_PORT = 2;
@@ -35,28 +41,34 @@ public class MainActivity extends AppCompatActivity {
     private MoviesSingleton moviesSingleton;
     private DatabaseSingleton databaseSingleton;
 
-    private RecyclerView postersRV;
+    @BindView(R.id.posters_rv)
+    RecyclerView postersRV;
+    @BindView(R.id.message_text_view)
+    TextView noFavMoviesTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        postersRV = findViewById(R.id.posters_rv);
-        setPostersRvProperties();
+        ButterKnife.bind(this);
 
         moviesSingleton = MoviesSingleton.getInstance(getApplicationContext());
         databaseSingleton = DatabaseSingleton.getInstance(getApplicationContext());
+    }
 
-        presenter = new MainPresenter(adapter, moviesSingleton,databaseSingleton);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setPostersRvProperties();
+
+        presenter = new MainPresenter(this, adapter, moviesSingleton, databaseSingleton);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int sortOrder = preferences.getInt(KEY_SORT_ORDER, ORDER_POPULAR);
 
         presenter.setMoviesToAdapter(sortOrder);
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if(itemId == R.id.action_popular) {
+            showPostersRv();
             presenter.setMoviesToAdapter(ORDER_POPULAR);
             PreferenceManager.getDefaultSharedPreferences(this).edit().
                     putInt(KEY_SORT_ORDER, ORDER_POPULAR).apply();
@@ -78,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(itemId == R.id.action_top_rated) {
+            showPostersRv();
             presenter.setMoviesToAdapter(ORDER_TOP_RATED);
             PreferenceManager.getDefaultSharedPreferences(this).edit().
                     putInt(KEY_SORT_ORDER, ORDER_TOP_RATED).apply();
@@ -111,5 +125,16 @@ public class MainActivity extends AppCompatActivity {
             columnNum = COLUMN_NUM_LAND;
         }
         return new GridLayoutManager(this, columnNum);
+    }
+
+    @Override
+    public void showMessageNoFavMovies() {
+        postersRV.setVisibility(View.GONE);
+        noFavMoviesTv.setVisibility(View.VISIBLE);
+    }
+
+    public void showPostersRv() {
+        postersRV.setVisibility(View.VISIBLE);
+        noFavMoviesTv.setVisibility(View.GONE);
     }
 }

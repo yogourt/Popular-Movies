@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class PostersAdapter
         extends RecyclerView.Adapter<PostersAdapter.PosterViewHolder>
-        implements MainContract.View.Adapter {
+        implements MainContract.Adapter {
 
     //base URL used to fetch poster's image in onBindViewHolder
     public static final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p/w185/";

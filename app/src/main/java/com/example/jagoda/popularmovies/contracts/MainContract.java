@@ -8,13 +8,12 @@ import java.util.List;
 public interface MainContract {
 
     interface View {
+        void showMessageNoFavMovies();
+    }
 
-
-        interface Adapter {
-            void setMovies(List<Movie> movies);
-            void addToMovies(Movie movie);
-
-        }
+    interface Adapter {
+        void setMovies(List<Movie> movies);
+        void addToMovies(Movie movie);
 
     }
 

@@ -9,16 +9,13 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/detail_activity_padding"
-        android:paddingRight="@dimen/detail_activity_padding"
-        android:paddingBottom="@dimen/detail_activity_padding"
+        android:padding="@dimen/detail_activity_padding"
         android:background="@color/quartz">
 
         <TextView
             android:id="@+id/overview_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/detail_vertical_padding"
             android:paddingBottom="@dimen/detail_vertical_padding"
             android:justificationMode="inter_word"
             style="@style/DetailBottomTextStyle"

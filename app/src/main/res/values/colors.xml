@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="mandy">#efa3a8</color>
+    <color name="mandy">#b6666c</color>
+    <color name="mandy_light">#df969c</color>
     <color name="rose">#D3A08C</color>
 
     <color name="luckyPoint">#1F214C</color>
